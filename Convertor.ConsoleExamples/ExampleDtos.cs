@@ -4,18 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Convertor.ConsoleTest
+namespace Convertor.ConsoleExamples
 {
-    internal class TestDtos
-    {
-        
-    }
+    public class ExampleDtos { }
+
 
     public class UserDTO
     {
         public int UserId { get; set; } = 1;
-        public string? UserName { get; set; } = "deneme";
-        public string Email { get; set; } = "mirvan@gmail.com";
+        public string? UserName { get; set; }
+        public string Email { get; set; }
     }
 
 

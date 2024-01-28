@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Convertor.Dtos;
 using System.Reflection;
 using System.Collections.ObjectModel;
+using Convertor.Exceptions;
 
 namespace Convertor;
 internal class Utils
@@ -21,10 +22,9 @@ internal class Utils
                 connection.Open();
                 DataTable dataTable = new DataTable();
 
-
-
                 List<TableDto> tableDtos = new List<TableDto>();
 
+                
                 using (SqlDataAdapter adapter = new SqlDataAdapter(Constants.Query, connection))
                 {
                     adapter.Fill(dataTable);
@@ -105,7 +105,7 @@ internal class Utils
         }
         catch (Exception e)
         {
-            throw;
+            throw new ConvertorException(e.Message, e);
         }
     }
     internal static string GenerateCsharpDto(TableDto table, bool includeRelations = true)
@@ -172,10 +172,10 @@ internal class Utils
     private static string SqlToCSharpType(string type)
     {
         if (string.IsNullOrEmpty(type))
-            throw new ArgumentException("sqlType is null or empty");
+            throw new ConvertorException("sqlType is null or empty");
 
-        
-        if(type.Contains("List") || type.Contains("ICollection") || type.Contains("IEnumerable")) return type;
+
+        if (type.Contains("List") || type.Contains("ICollection") || type.Contains("IEnumerable")) return type;
 
 
         switch (type.ToLower())
@@ -232,7 +232,7 @@ internal class Utils
     private static string SqlToTsType(string type)
     {
         if (string.IsNullOrEmpty(type))
-            throw new ArgumentException("sqlType is null or empty");
+            throw new ConvertorException("sqlType is null or empty");
 
         if (type.Contains("List") || type.Contains("ICollection") || type.Contains("IEnumerable"))
         {
@@ -288,9 +288,7 @@ internal class Utils
 
     private static string CSToTSType(PropertyInfo actualType)
     {
-        //Type underlyingType = Nullable.GetUnderlyingType(actualType);
-        //string nullableSuffix = underlyingType != null ? " | null" : string.Empty;
-        //actualType = underlyingType ?? actualType;
+ 
         try
         {
             string nullableSuffix = string.Empty;
@@ -347,7 +345,7 @@ internal class Utils
         }
         catch (Exception e)
         {
-            throw;
+            throw new ConvertorException(e.Message, e);
         }
     }
 
