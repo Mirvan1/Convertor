@@ -111,7 +111,7 @@ internal class Utils
     internal static string GenerateCsharpDto(TableDto table, bool includeRelations = true)
     {
         StringBuilder generateBuilder = new StringBuilder();
-        generateBuilder.Append($"public class {table.TableName}\n{Constants.OpenCurlyParanthesis}\n");
+        generateBuilder.Append($"public class {table.TableName}{Environment.NewLine}{Constants.OpenCurlyParanthesis}{Environment.NewLine}");
 
         if (table.Columns != null && table.Columns.Count > 0)
         {
@@ -120,21 +120,21 @@ internal class Utils
                 if (!string.IsNullOrEmpty(column.Name))
                 {
                     string nullParam = column.IsNullable ? "?" : string.Empty;
-                    generateBuilder.Append($"\tpublic {SqlToCSharpType(column.DataType)}{nullParam} {column.Name};\n");
+                    generateBuilder.Append($"\tpublic {SqlToCSharpType(column.DataType)}{nullParam} {column.Name};{Environment.NewLine}");
                 }
                 }
 
             if (includeRelations && table.RelationalTables != null && table.RelationalTables.Count > 0)
-                table.RelationalTables.ForEach(relation => generateBuilder.Append($"\tpublic ICollection<{relation}> {relation};\n"));
+                table.RelationalTables.ForEach(relation => generateBuilder.Append($"\tpublic ICollection<{relation}> {relation};{Environment.NewLine}"));
         }
-        generateBuilder.Append($"{Constants.ClosedCurlyParanthesis}\n");
+        generateBuilder.Append($"{Constants.ClosedCurlyParanthesis}{Environment.NewLine}");
         return generateBuilder.ToString();
     }
 
     internal static string GenerateTSDto(TableDto table, bool includeRelations = true)
     {
         StringBuilder generateBuilder = new StringBuilder();
-        generateBuilder.Append($"export interface {table.TableName}\n{Constants.OpenCurlyParanthesis}\n");
+        generateBuilder.Append($"export interface {table.TableName}{Environment.NewLine}{Constants.OpenCurlyParanthesis}{Environment.NewLine}");
 
         if (table.Columns != null && table.Columns.Count > 0)
         {
@@ -143,21 +143,21 @@ internal class Utils
                 if (!string.IsNullOrEmpty(column.Name))
                 {
                     string nullParam = column.IsNullable ? "?" : string.Empty;
-                    generateBuilder.Append($"\t{TitleCase(column.Name)}{nullParam}:{SqlToTsType(column.DataType)};\n");
+                    generateBuilder.Append($"\t{TitleCase(column.Name)}{nullParam}:{SqlToTsType(column.DataType)};{Environment.NewLine}");
                 }
             }
 
             if (includeRelations && table.RelationalTables != null && table.RelationalTables.Count > 0)
-                table.RelationalTables.ForEach(relation => generateBuilder.Append($"\t{TitleCase(relation)}: {relation}[];\n"));
+                table.RelationalTables.ForEach(relation => generateBuilder.Append($"\t{TitleCase(relation)}: {relation}[];{Environment.NewLine}"));
         }
-        generateBuilder.Append($"{Constants.ClosedCurlyParanthesis}\n");
+        generateBuilder.Append($"{Constants.ClosedCurlyParanthesis}{Environment.NewLine}");
         return generateBuilder.ToString();
     }
 
     internal static string GenerateTSFromAssembly(Type type)
     {
         StringBuilder tsDto = new StringBuilder();
-        tsDto.Append($"export interface {type.Name}{Constants.OpenCurlyParanthesis}\n");
+        tsDto.Append($"export interface {type.Name}{Constants.OpenCurlyParanthesis}{Environment.NewLine}");
 
         foreach (var prop in type.GetProperties())
         {
