@@ -1,5 +1,5 @@
 # Convertor
-Convertor is a NuGet library designed to convert SQL tables into C# and TypeScript DTOs and C# entities to TypeScript. It simplifies the development process by automating the conversion between these different formats.
+Convertor is library designed to convert SQL tables into C# and TypeScript DTOs and C# entities to TypeScript. It simplifies the development process by automating the conversion between these different formats.
 
 ## Examples and how to use:
 
