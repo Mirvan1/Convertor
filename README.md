@@ -5,19 +5,19 @@ Convertor is a NuGet library designed to convert SQL tables into C# and TypeScri
 
 ### Convert SQL tables to C#:
 ```
-byte[] csharpDTO = Convertors.SqlToCSharp("connection-string", true, "except-your-tables-name-optional");
+byte[] example1 = Convertors.SqlToCSharp("connection-string");
 ```
 ### Convert SQL tables to TypeScript:
 ``` 
-byte[] typescriptDTO = Convertors.SqlToTypescript("connection-string", true, "except-your-tables-name-optional");
+byte[] example2 = Convertors.SqlToTypescript("connection-string");
 ```
 ### Save TypeScript conversion to a file:
 ``` 
-Convertors.SqlToTypescript("path-to-save", "filename.ts", "connection-string", true, "your-table-name");
+Convertors.SqlToTypescript("path-to-save", "filename.ts", "connection-string");
 ```
 ### Save C# conversion to a file:
 ``` 
-Convertors.SqlToCSharp("path-to-save", "filename.cs", "connection-string", true, "your-table-name");
+Convertors.SqlToCSharp("path-to-save", "filename.cs", "connection-string");
 ```
 ### Convert C# entities to TypeScript:
 ``` 
